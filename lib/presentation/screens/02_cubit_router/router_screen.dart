@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:blocs_app/config/config.dart';
 
 class RouterScreen extends StatelessWidget {
   const RouterScreen({super.key});
@@ -11,8 +12,10 @@ class RouterScreen extends StatelessWidget {
         title: const Text('Cubit + Go Router'),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon( Icons.arrow_back_ios_new_rounded ),
-        onPressed: () {},
+        child: const Icon(Icons.arrow_back_ios_new_rounded),
+        onPressed: () {
+          context.read<RouterSimpleCubit>().goBack();
+        },
       ),
     );
   }

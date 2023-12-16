@@ -1,5 +1,5 @@
-import 'package:go_router/go_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:blocs_app/presentation/screens/screens.dart';
 
 final _privateRouter = GoRouter(routes: [
@@ -38,5 +38,5 @@ class RouterSimpleCubit extends Cubit<GoRouter> {
 
   void goBack() => state.pop();
 
-  void goToHome() => state.go('/');
+  void goHome() => state.go('/');
 }

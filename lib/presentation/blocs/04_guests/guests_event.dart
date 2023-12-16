@@ -28,3 +28,11 @@ final class AddGuestEvent extends GuestsEvent {
   @override
   List<Object> get props => [description];
 }
+
+final class ToggleGuestEvent extends GuestsEvent {
+  final String id;
+  const ToggleGuestEvent(this.id);
+
+  @override
+  List<Object> get props => [id];
+}

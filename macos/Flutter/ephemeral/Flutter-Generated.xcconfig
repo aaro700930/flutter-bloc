@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=C:\flutter
-FLUTTER_APPLICATION_PATH=C:\Users\aaro7\OneDrive\Escritorio\VisualStudioProjects\devtalles\flutter-bloc
+FLUTTER_ROOT=/Users/alfredorivera/development/flutter
+FLUTTER_APPLICATION_PATH=/Users/alfredorivera/Desktop/devtalles/flutter-bloc
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_BUILD_DIR=build
 FLUTTER_BUILD_NAME=1.0.0

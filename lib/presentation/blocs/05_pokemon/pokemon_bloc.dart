@@ -6,14 +6,19 @@ part 'pokemon_event.dart';
 part 'pokemon_state.dart';
 
 class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
-  PokemonBloc() : super(const PokemonState()) {
-    on<PokemonAddEvent>((event, emit) {
-      state.pokemons[event.pokemonId] = event.pokemonName;
-      emit(state.copyWith());
-      // final newPokemons = {...state.pokemons};
-      // newPokemons[event.pokemonId] = event.pokemonName;
+  final Future<String> Function(int) _fetchPokemonName;
 
-      // emit(state.copyWith(pokemons: newPokemons));
+  PokemonBloc({
+    required Future<String> Function(int) fetchPokemonName,
+  })  : _fetchPokemonName = fetchPokemonName,
+        super(const PokemonState()) {
+    on<PokemonAddEvent>((event, emit) {
+      // state.pokemons[event.pokemonId] = event.pokemonName;
+      // emit(state.copyWith());
+      final newPokemons = {...state.pokemons};
+      newPokemons[event.pokemonId] = event.pokemonName;
+
+      emit(state.copyWith(pokemons: newPokemons));
     });
     // on<PokemonEvent>((event, emit) {
     //   // TODO: implement event handler
@@ -21,8 +26,12 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   }
 
   Future<String> fetchPokemon(int pokemonId) async {
+    if (state.pokemons.containsKey(pokemonId)) {
+      return state.pokemons[pokemonId]!;
+    }
+
     try {
-      final pokemonName = await PokemonInformation.getPokemonName(pokemonId);
+      final pokemonName = await _fetchPokemonName(pokemonId);
       add(PokemonAddEvent(pokemonId, pokemonName));
       return pokemonName;
     } catch (e) {

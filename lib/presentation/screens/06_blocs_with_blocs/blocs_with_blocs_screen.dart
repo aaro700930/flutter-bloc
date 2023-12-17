@@ -8,14 +8,22 @@ class BlocsWithBlocsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final geolocationCubit = context.watch<GeolocationCubit>().state.location;
+    // final geolocationCubit = context.watch<GeolocationCubit>().state.location;
+    final historicLocationBloc = context.watch<HistoricLocationBloc>();
+    final historicLocationState = historicLocationBloc.state;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Blocs con Blocs'),
+        title: Text('Ubicaciones: ${historicLocationState.howManyLocations}'),
       ),
-      body: Center(
-        child: Text('$geolocationCubit'),
+      body: ListView.builder(
+        itemCount: historicLocationState.howManyLocations,
+        itemBuilder: (BuildContext context, int index) {
+          final (lat, lng) = historicLocationState.locations[index];
+          return ListTile(
+            title: Text('Lat: $lat, Lng: $lng'),
+          );
+        },
       ),
     );
   }

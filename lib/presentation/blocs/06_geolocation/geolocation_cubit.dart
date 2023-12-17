@@ -5,7 +5,11 @@ import 'package:geolocator/geolocator.dart';
 part 'geolocation_state.dart';
 
 class GeolocationCubit extends Cubit<GeolocationState> {
-  GeolocationCubit() : super(const GeolocationState());
+  final void Function((double lat, double lng) location)?
+      onNewUserLocationCallback;
+
+  GeolocationCubit(this.onNewUserLocationCallback)
+      : super(const GeolocationState());
 
   Future<void> checkStatus() async {
     final serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -29,7 +33,7 @@ class GeolocationCubit extends Cubit<GeolocationState> {
 
     const locationSettings = LocationSettings(
       accuracy: LocationAccuracy.bestForNavigation,
-      distanceFilter: 15,
+      distanceFilter: 50,
     );
 
     Geolocator.getPositionStream(locationSettings: locationSettings)
@@ -37,6 +41,8 @@ class GeolocationCubit extends Cubit<GeolocationState> {
       final newLocation = (position.latitude, position.longitude);
       emit(state.copyWith(location: newLocation));
       // print(newLocation);
+
+      onNewUserLocationCallback?.call(newLocation);
     });
   }
 }

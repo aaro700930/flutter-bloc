@@ -21,6 +21,9 @@ class BlocsProvider extends StatelessWidget {
         BlocProvider(
           create: (context) => getIt<GeolocationCubit>(),
         ),
+        BlocProvider(
+          create: (context) => getIt<HistoricLocationBloc>(),
+        ),
       ],
       child: const MyApp(),
     );
